@@ -1,0 +1,35 @@
+<img src="{{equipo.crestUrl}}" alt="">
+
+<h3>{{equipo.name}}</h3>
+
+<a href="/">
+<button id='inicio'>Volver a inicio</button>
+</a>
+
+<table>
+  <tr>
+    <th>Información</th>
+    <th>Valor</th>
+  </tr>
+
+   <tr>
+     <td>Direccion</td>
+     <td>{{equipo.address}}</td>
+   </tr>
+   <tr>
+     <td>Website</td>
+     <td>{{equipo.website}}</td>
+   </tr>
+   <tr>
+     <td>Colores</td>
+     <td>{{equipo.clubColors}}</td>
+   </tr>
+   <tr>
+     <td>Estadio</td>
+     <td>{{equipo.venue}}</td>
+   </tr>
+</table>
+
+<h4>Plantel</h4>
+
+{{>listajugadores jugadores=equipo.squad}}

@@ -1,0 +1,27 @@
+<h1>Equipos</h1>
+
+<a href="/nuevo">
+<button id='nuevoequipo'>Nuevo equipo</button>
+</a>
+
+<table>
+  <tr>
+    <th>Nombre equipo</th>
+    <th>Fundado</th>
+    <th>Acción</th>
+  </tr>
+  {{#each equipos as |equipo|}}
+  <tr>
+    <td>
+      {{equipo.name}}
+    </td>
+    <td>
+      {{equipo.founded}}
+    </td>
+    <td>
+      <a href="/equipo/{{equipo.tla}}/ver">Ver</a>, <a href="/equipo/{{equipo.tla}}/editar">Editar</a>, <a href="">Eliminar</a>
+    </td>
+  </tr>
+  {{/each}}
+
+</table>

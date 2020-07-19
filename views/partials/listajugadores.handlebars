@@ -1,0 +1,20 @@
+<table>
+  <tr>
+    <th>Nombre</th>
+    <th>Posicion</th>
+    <th>Pais de nacimiento</th>
+  </tr>
+  {{#each jugadores as |jugador|}}
+  <tr>
+    <td>
+      {{jugador.name}}
+    </td>
+    <td>
+      {{jugador.position}}
+    </td>
+    <td>
+      {{jugador.countryOfBirth}}
+    </td>
+  </tr>
+  {{/each}}
+</table>
