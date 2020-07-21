@@ -19,7 +19,7 @@ app.set('view engine', 'handlebars');
 // app.use('/public', express.static(`${__dirname}/public`));
 
 app.use(express.static(`${__dirname}/public`));
-
+// app.use('/ver', express.static(`${__dirname}/public`));
 
 app.get('/', (req, res) => {
   const equipos = JSON.parse(fs.readFileSync('./public/data/equipos.db.json'));
@@ -33,9 +33,11 @@ app.get('/', (req, res) => {
 app.get('/equipo/:tla/ver', (req, res) => {
   const tla = req.params.tla
   const equipo = JSON.parse(fs.readFileSync(`./public/data/equipos/${tla}.json`));
+  const vieneDeWeb = equipo.crestUrl.slice(0,4) === 'http';
   res.render('ver',{
     layout: 'layout',
     equipo,
+    vieneDeWeb,
   });
 });
 
@@ -56,15 +58,16 @@ app.post('/nuevo', upload.single('crestUrl'), (req, res) => {
     },
   });
   let archivodb = JSON.parse(fs.readFileSync('./public/data/equipos.db.json'));
-  const nuevoequipo = {"name": req.body.name,
-                      "id": archivodb[-1].id + 1,
+  const nuevoequipo = {
+                      "id": archivodb[archivodb.length - 1].id + 1,
                       "area": {
                         "id": 2072,
                         "name": "England"
                       },
+                      "name": req.body.name,
                       "shortName": req.body.shortName,
                       "tla": req.body.tla,
-                      "crestUrl":req.file.path,
+                      "crestUrl":req.file.name,
                       "address": req.body.address,
                       "phone": req.body.phone,
                       "website": req.body.website,
@@ -75,11 +78,12 @@ app.post('/nuevo', upload.single('crestUrl'), (req, res) => {
                       "lastUpdated": (new Date).toISOString(),
                     };
 
-  console.log("nuevoequipo es", nuevoequipo);
-  let archivoNuevoEquipo = JSON.stringify([], null, 2);
-  fs.writeFileSync(`./public/data/equipos/${nuevoequipo.tla}.json`, archivoNuevoEquipo);
-  archivodb.push(nuevoequipo);
+  //creo el archivo .json dentro de /equipos y le adoso los arrays para las competiciones y los jugadores
+  let archivoNuevoEquipo = JSON.parse(JSON.stringify(nuevoequipo));
+  archivoNuevoEquipo = Object.assign(archivoNuevoEquipo, {"activeCompetitions":[], "squad": []});
+  fs.writeFileSync(`./public/data/equipos/${nuevoequipo.tla}.json`, JSON.stringify(archivoNuevoEquipo));
 
+  archivodb.push(nuevoequipo);
   fs.writeFileSync('./public/data/equipos.db.json', JSON.stringify(archivodb, null, 2));
 
 });
@@ -93,6 +97,11 @@ app.get('/equipo/:tla/editar', (req, res) => {
     equipo,
   });
 });
+
+
+// app.patch('/equipo/:tla/editar', (req, res) => {
+
+// })
 
 
 app.listen(8080);

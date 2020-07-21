@@ -1,4 +1,9 @@
-<img src="{{equipo.crestUrl}}" alt="">
+{{#if vieneDeWeb}}
+  <img src={{equipo.crestUrl}} alt="">
+{{else}}
+<img src="/uploads/imagenes/{{equipo.crestUrl}}" alt="">
+{{/if}}
+
 
 <h3>{{equipo.name}}</h3>
 
