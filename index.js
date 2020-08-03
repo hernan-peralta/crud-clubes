@@ -27,19 +27,19 @@ app.get('/', (req, res) => {
 
 app.get('/equipo/:tla/ver', (req, res) => {
   const tla = req.params.tla
-  //const vieneDeWeb = equipo.crestUrl.slice(0,4) === 'http';
   let indiceEquipo = 0;
-    fs.readFile(`./public/data/equipos.db.json`, (err, data) => {
-      for (let i = 0; i < (JSON.parse(data)).length; i++) {
-        if ((JSON.parse(data))[i].tla === tla){
-          indiceEquipo = i;
-        }; 
-      }
+  fs.readFile(`./public/data/equipos.db.json`, (err, data) => {
+    for (let i = 0; i < (JSON.parse(data)).length; i++) {
+      if ((JSON.parse(data))[i].tla === tla){
+        indiceEquipo = i;
+      }; 
+    }
+    const vieneDeWeb = JSON.parse(data)[indiceEquipo].crestUrl.slice(0,4) === 'http';
 
       res.render('ver',{
         layout: 'layout',
         equipo: JSON.parse(data)[indiceEquipo],
-        //vieneDeWeb,
+        vieneDeWeb,
         titleTag: JSON.parse(data).shortName,
       });
   })
@@ -92,8 +92,6 @@ app.post('/nuevo', upload.single('crestUrl'), (req, res) => {
     },
   });
   
-  //res.redirect("/")
-  //setTimeout(() => res.redirect("/"), 3000);
 });
 
 
@@ -120,7 +118,6 @@ app.get('/equipo/:tla/editar', (req, res) => {
 });
 
 
-//terminar de implementar esto
 app.post('/equipo/:tla/editar', upload.none(), (req, res) => {
   const tla = req.params.tla
   let archivodb = JSON.parse(fs.readFileSync('./public/data/equipos.db.json'));
@@ -151,11 +148,10 @@ app.post('/equipo/:tla/editar', upload.none(), (req, res) => {
 
 })
 
-//cambiar a app.get
+
 app.delete('/equipo/:tla/borrar', (req, res) => {
   const tla = req.params.tla
 
-  //borrar la entrada donde tla es tla
   let archivodb = JSON.parse(fs.readFileSync('./public/data/equipos.db.json'));
 
   let indiceABorrar;
@@ -180,7 +176,6 @@ app.delete('/equipo/:tla/borrar', (req, res) => {
 
   fs.writeFileSync('./public/data/equipos.db.json', JSON.stringify(archivodb, null, 2));
   res.redirect('/');
-
 })
 
 app.listen(8080);
