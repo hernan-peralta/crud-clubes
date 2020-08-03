@@ -1,8 +1,12 @@
-<table>
+<table id="tabla-jugadores">
   <tr>
     <th>Nombre</th>
     <th>Posicion</th>
+    <th>Fecha de nacimiento</th>
     <th>Pais de nacimiento</th>
+    <th>Nacionalidad</th>
+    <th>Numero de camiseta</th>
+    <th>Rol</th>
   </tr>
   {{#each jugadores as |jugador|}}
   <tr>
@@ -13,7 +17,19 @@
       {{jugador.position}}
     </td>
     <td>
+      {{jugador.dateOfBirth}}
+    </td>
+    <td>
       {{jugador.countryOfBirth}}
+    </td>
+    <td>
+      {{jugador.nationality}}
+    </td>
+    <td>
+      {{jugador.shirtNumber}}
+    </td>
+    <td>
+      {{jugador.role}}
     </td>
   </tr>
   {{/each}}

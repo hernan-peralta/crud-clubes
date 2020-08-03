@@ -5,25 +5,51 @@
 {{/if}}
 
 
-<h3>{{equipo.name}}</h3>
+<h2>{{equipo.name}}</h3>
 
-<a href="/">
-<button id='inicio'>Volver a inicio</button>
-</a>
+<div id="div-boton">
+  <a href="/">
+  <button id='inicio'>Volver a inicio</button>
+  </a>
+</div>
+
 
 <table>
   <tr>
     <th>Información</th>
     <th>Valor</th>
   </tr>
-
+  <tr>
+    <td>Nombre</td>
+    <td>{{equipo.name}}</td>
+  </tr>
+  <tr>
+    <td>Nombre corto</td>
+    <td>{{equipo.shortName}}</td>
+  </tr>
+  <tr>
+    <td>TLA</td>
+    <td>{{equipo.tla}}</td>
+  </tr>
    <tr>
      <td>Direccion</td>
      <td>{{equipo.address}}</td>
    </tr>
    <tr>
+     <td>Telefono</td>
+     <td>{{equipo.phone}}</td>
+   </tr>
+   <tr>
      <td>Website</td>
      <td>{{equipo.website}}</td>
+   </tr>
+   <tr>
+     <td>Email</td>
+     <td>{{equipo.email}}</td>
+   </tr>
+   <tr>
+     <td>Fundado</td>
+     <td>{{equipo.founded}}</td>
    </tr>
    <tr>
      <td>Colores</td>
@@ -35,6 +61,6 @@
    </tr>
 </table>
 
-<h4>Plantel</h4>
+<h3>Plantel</h4>
 
-{{>listajugadores jugadores=equipo.squad}}
+<!--{{>listajugadores jugadores=jugadores}}-->

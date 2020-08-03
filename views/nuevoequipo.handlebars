@@ -3,50 +3,56 @@
 {{#if data.mensaje}}
 <p>{{data.mensaje}}</p>
 <p>{{data.nombreArchivo}}</p>
-<img src="/uploads/imagenes/{{data.nombreArchivo}}">
+<img src="uploads/imagenes/{{data.nombreArchivo}}">
 {{/if}}
 
-{{!-- <img src="uploads/imagenes/04cd466984cb918c1edd972f4a58b1ad"> --}}
-{{!-- <img src="uploads/imagenes/67fe81a71a4f43df5a3115084456047c" alt=""> --}}
 
-<form action="/nuevo" method="POST" enctype="multipart/form-data">
-  <label for="id-escudo">Escudo</label>
-  <input type="file" name="crestUrl" id="id-escudo">
-  <br>
-  <label for="id-nombre">Nombre</label>
-  <input type="text" name="name" id="id-nombre" placeholder="Nombre">
-  <br>
-  <label for="id-nombreCorto">Nombre corto</label>
-  <input type="text" name="shortName" id="id-nombreCorto" placeholder="Nombre corto">
-  <br>
-  <label for="id-acronimo">Acronimo (3 letras)</label>
-  <input type="text" name="tla" id="id-acronimo" placeholder="TLA">
-  <br>
-  <label for="id-direccion">Direccion</label>
-  <input type="text" name="address" id="id-direccion">
-  <br>
-  <label for="id-telefono">Telefono</label>
-  <input type="text" name="phone" id="id-telefono">
-  <br>
-  <label for="id-website">Website</label>
-  <input type="text" name="website" id="id-website">
-  <br>
-  <label for="id-email">E-Mail</label>
-  <input type="text" name="email" id="id-email">
-  <br>
-  <label for="id-fundacion">Año fundacion</label>
-  <input type="text" name="founded" id="id-fundacion">
-  <br>
-  <label for="id-colores">Colores del club</label>
-  <input type="text" name="clubColors" id="id-colores">
-  <br>
-  <label for="id-estadio">Estadio</label>
-  <input type="text" name="venue" id="id-estadio" >
-  <br>
-  <input type="submit" value="Agregar equipo">
-</form>
+<div id="div-boton">
+  <a href="/">
+  <button id='inicio'>Volver a inicio</button>
+  </a>
+</div>
+
+<div id="div-nuevoequipo">
+
+  <form action="/nuevo" method="POST" enctype="multipart/form-data">
+    <label for="id-escudo">Escudo</label>
+    <input type="file" name="crestUrl" id="id-escudo">
+    <br>
+    <label for="id-nombre">Nombre</label>
+    <input type="text" name="name" id="id-nombre" placeholder="Nombre">
+    
+    <label for="id-nombreCorto">Nombre corto</label>
+    <input type="text" name="shortName" id="id-nombreCorto" placeholder="Nombre corto">
+
+    <label for="id-acronimo">Acronimo (3 letras)</label>
+    <input type="text" name="tla" id="id-acronimo" placeholder="TLA">
+
+    <label for="id-direccion">Direccion</label>
+    <input type="text" name="address" id="id-direccion">
+
+    <label for="id-telefono">Telefono</label>
+    <input type="text" name="phone" id="id-telefono">
+
+    <label for="id-website">Website</label>
+    <input type="text" name="website" id="id-website">
+
+    <label for="id-email">E-Mail</label>
+    <input type="text" name="email" id="id-email">
+
+    <label for="id-fundacion">Año fundacion</label>
+    <input type="text" name="founded" id="id-fundacion">
+
+    <label for="id-colores">Colores del club</label>
+    <input type="text" name="clubColors" id="id-colores">
+
+    <label for="id-estadio">Estadio</label>
+    <input type="text" name="venue" id="id-estadio" >
+
+    <input type="submit" value="Agregar equipo">
+
+    <button id="boton-agregar-jugador">Agregar jugador</button>
+
+  </form>
+</div>
 <br>
-
-<a href="/">
-<button id='inicio'>Volver a inicio</button>
-</a>

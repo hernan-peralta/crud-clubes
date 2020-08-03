@@ -3,9 +3,94 @@ header{
   color: white;
   display: grid;
   justify-content: center;
+  font-size: 60px;
 }
 
-h1{
-  color: green;
+h1, h2, h3{
+  text-align: center;
 }
 
+header, h1, h2, h3, form{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.eliminar{
+  display: inline;
+}
+
+#div-nuevoequipo{
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+input[type=submit], input[type=file], button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 8px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+}
+
+#div-boton{
+  display: flex;
+  justify-content: center;
+  padding: 20px; 
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+input[type=submit]:hover{
+  background-color: #45a049;
+}
+
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+img{
+  padding: 25px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table{
+  border-collapse: collapse;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+th{
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #4CAF50;
+  color: white;
+}
+
+table tr:hover {background-color: #ddd;}
+
+#tabla-jugadores{
+  width: 100%;
+}
+
+th, td {
+  border-bottom: 1px solid #ddd;
+}
+
+td{
+  text-align: center;
+}
