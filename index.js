@@ -113,7 +113,6 @@ app.get('/equipo/:tla/editar', (req, res) => {
     equipo: archivodb[indiceEquipo],
     vieneDeWeb,
     titleTag: archivodb[indiceEquipo].shortName,
-    script: '/src/edit.js',
   });
 });
 
