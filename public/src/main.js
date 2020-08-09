@@ -8,6 +8,6 @@ $divEliminar.forEach((elemento) => elemento.addEventListener('click', (e) => {
 
 function borrar(url) {
   return fetch(url, {
-    method: 'DELETE',
+    method: 'GET',
   });
 }

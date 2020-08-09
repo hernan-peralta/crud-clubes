@@ -138,7 +138,7 @@ app.post('/equipo/:tla/editar', upload.none(), (req, res) => {
   });
 });
 
-app.delete('/equipo/:tla/borrar', (req, res) => {
+app.get('/equipo/:tla/borrar', (req, res) => {
   const tla = req.params.tla;
 
   const archivodb = JSON.parse(fs.readFileSync('./public/data/equipos.db.json'));
