@@ -1,5 +1,6 @@
 const express = require('express');
 const fs = require('fs');
+const path = require('path');
 const multer = require('multer');
 const exphbs = require('express-handlebars');
 
@@ -11,7 +12,7 @@ const hbs = exphbs.create();
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
-app.use(express.static(`${__dirname}/public`));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
   fs.readFile('./public/data/equipos.db.json', (err, data) => {
