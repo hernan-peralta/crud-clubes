@@ -26,20 +26,15 @@ app.get('/', (req, res) => {
 
 app.get('/equipo/:tla/ver', (req, res) => {
   const tla = req.params.tla;
-  let indiceEquipo = 0;
   fs.readFile('./public/data/equipos.db.json', (err, data) => {
-    for (let i = 0; i < (JSON.parse(data)).length; i++) {
-      if ((JSON.parse(data))[i].tla === tla) {
-        indiceEquipo = i;
-      }
-    }
-    const vieneDeWeb = JSON.parse(data)[indiceEquipo].crestUrl.slice(0, 4) === 'http';
+    const equipoSeleccionado = JSON.parse(data).find((team) => tla === team.tla);
+    const vieneDeWeb = equipoSeleccionado.crestUrl.slice(0, 4) === 'http';
 
     res.render('ver', {
       layout: 'layout',
-      equipo: JSON.parse(data)[indiceEquipo],
+      equipo: equipoSeleccionado,
       vieneDeWeb,
-      titleTag: JSON.parse(data).shortName,
+      titleTag: equipoSeleccionado.shortName,
     });
   });
 });
@@ -93,21 +88,16 @@ app.post('/nuevo', upload.single('crestUrl'), (req, res) => {
 app.get('/equipo/:tla/editar', (req, res) => {
   const tla = req.params.tla;
   const archivodb = JSON.parse(fs.readFileSync('./public/data/equipos.db.json'));
-  let indiceEquipo = 0;
 
-  for (let i = 0; i < archivodb.length; i++) {
-    if (archivodb[i].tla === tla) {
-      indiceEquipo = i;
-    }
-  }
+  const equipoAEditar = archivodb.find((team) => tla === team.tla);
 
-  const vieneDeWeb = archivodb[indiceEquipo].crestUrl.slice(0, 4) === 'http';
+  const vieneDeWeb = equipoAEditar.crestUrl.slice(0, 4) === 'http';
 
   res.render('editar', {
     layout: 'layout',
-    equipo: archivodb[indiceEquipo],
+    equipo: equipoAEditar,
     vieneDeWeb,
-    titleTag: archivodb[indiceEquipo].shortName,
+    titleTag: equipoAEditar.shortName,
   });
 });
 
@@ -115,7 +105,6 @@ app.post('/equipo/:tla/editar', upload.none(), (req, res) => {
   const tla = req.params.tla;
   const archivodb = JSON.parse(fs.readFileSync('./public/data/equipos.db.json'));
   let indiceEquipo = 0;
-
   for (let i = 0; i < archivodb.length; i++) {
     if (archivodb[i].tla === tla) {
       indiceEquipo = i;
