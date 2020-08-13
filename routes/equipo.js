@@ -1,10 +1,7 @@
 const express = require('express');
-const multer = require('multer');
-const fs = require('fs');
 const servicios = require('../services/services');
 
 const router = express.Router();
-const upload = multer({ dest: './public/uploads/imagenes' });
 
 router.get('/:tla/ver', async (req, res) => {
   const { equipoSeleccionado, vieneDeWeb } = await servicios.mostrarDetalleEquipo(req);
@@ -28,25 +25,12 @@ router.get('/:tla/editar', async (req, res) => {
   });
 });
 
-router.post('/:tla/editar', upload.none(), (req, res) => {
-  const tla = req.params.tla;
-  const archivodb = JSON.parse(fs.readFileSync('./public/data/equipos.db.json'));
-  let indiceEquipo = 0;
-  for (let i = 0; i < archivodb.length; i++) {
-    if (archivodb[i].tla === tla) {
-      indiceEquipo = i;
-    }
-  }
-
-  Object.keys(req.body).forEach((key) => { archivodb[indiceEquipo][key] = req.body[key]; });
-
-  const vieneDeWeb = archivodb[indiceEquipo].crestUrl.slice(0, 4) === 'http';
-
-  fs.writeFileSync('./public/data/equipos.db.json', JSON.stringify(archivodb, null, 2));
+router.post('/:tla/editar', servicios.multerTexto(), async (req, res) => {
+  const { equipo, vieneDeWeb } = await servicios.editarEquipo(req);
 
   res.render('editar', {
     layout: 'layout',
-    equipo: archivodb[indiceEquipo],
+    equipo: equipo,
     vieneDeWeb,
     data: {
       mensaje: '¡Equipo actualizado con éxito!',

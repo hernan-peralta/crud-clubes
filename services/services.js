@@ -3,18 +3,29 @@ const fs = require('fs').promises;
 
 const upload = multer({ dest: './public/uploads/imagenes' });
 
+exports.multerTexto = function () {
+  return upload.none();
+};
+
+exports.multerArchivo = function (parametro) {
+  return upload.single(parametro);
+};
+
 exports.mostrarIndice = async function () {
   const datos = await fs.readFile('./public/data/equipos.db.json', (err, data) => data);
   return JSON.parse(datos);
 };
 
-exports.nuevoEquipo = function (req ) {
+exports.nuevoEquipo = async function (req) {
+  // si no subo ninguna imagen creo el campo file.filename para que no me rompa toda la aplicacion
+  let vieneDeWeb = '';
   if (req.file === undefined) {
     req.file = {};
-    req.file.filename = '';
+    req.file.filename = req.body.urlImagen || '';
+    vieneDeWeb = req.file.filename.slice(0, 4) === 'http';
   }
 
-  const archivodb = JSON.parse(fs.readFileSync('./public/data/equipos.db.json'));
+  const archivodb = JSON.parse(await fs.readFile('./public/data/equipos.db.json'));
   const nuevoequipo = {
     id: archivodb[archivodb.length - 1].id + 1,
     area: {
@@ -35,8 +46,11 @@ exports.nuevoEquipo = function (req ) {
     lastUpdated: (new Date()).toISOString(),
   };
 
+  const nombreArchivo = req.file.filename;
   archivodb.push(nuevoequipo);
-  fs.writeFileSync('./public/data/equipos.db.json', JSON.stringify(archivodb, null, 2));
+  await fs.writeFile('./public/data/equipos.db.json', JSON.stringify(archivodb, null, 2));
+
+  return { vieneDeWeb, nombreArchivo };
 };
 
 exports.mostrarEquipoEditar = async function (req) {
@@ -46,6 +60,26 @@ exports.mostrarEquipoEditar = async function (req) {
   const vieneDeWeb = equipoAEditar.crestUrl.slice(0, 4) === 'http';
 
   return { equipoAEditar, vieneDeWeb };
+};
+
+exports.editarEquipo = async function (req) {
+  const tla = req.params.tla;
+  const archivodb = JSON.parse(await fs.readFile('./public/data/equipos.db.json'));
+  let indiceEquipo = 0;
+  for (let i = 0; i < archivodb.length; i++) {
+    if (archivodb[i].tla === tla) {
+      indiceEquipo = i;
+    }
+  }
+
+  Object.keys(req.body).forEach((key) => { archivodb[indiceEquipo][key] = req.body[key]; });
+
+  const equipo = archivodb[indiceEquipo];
+  const vieneDeWeb = archivodb[indiceEquipo].crestUrl.slice(0, 4) === 'http';
+
+  await fs.writeFile('./public/data/equipos.db.json', JSON.stringify(archivodb, null, 2));
+
+  return { equipo, vieneDeWeb };
 };
 
 exports.mostrarDetalleEquipo = async function (req) {
