@@ -8,14 +8,18 @@ const upload = multer({ dest: './public/uploads/imagenes' });
 router.get('/', (req, res) => {
   res.render('nuevoequipo', {
     layout: 'layout',
+    script: '/src/nuevo.js',
   });
 });
 
 router.post('/', upload.single('crestUrl'), (req, res) => {
   // si no subo ninguna imagen creo el campo file.filename para que no me rompa toda la aplicacion
+  let vieneDeWeb = '';
+  console.log('req.file es', req.file);
   if (req.file === undefined) {
     req.file = {};
-    req.file.filename = '';
+    req.file.filename = req.body.urlImagen || '';
+    vieneDeWeb = req.file.filename.slice(0, 4) === 'http';
   }
 
   const archivodb = JSON.parse(fs.readFileSync('./public/data/equipos.db.json'));
@@ -41,9 +45,11 @@ router.post('/', upload.single('crestUrl'), (req, res) => {
 
   archivodb.push(nuevoequipo);
   fs.writeFileSync('./public/data/equipos.db.json', JSON.stringify(archivodb, null, 2));
-
+  console.log('viene de web?', vieneDeWeb);
   res.render('nuevoequipo', {
     layout: 'layout',
+    script: '/src/nuevo.js',
+    vieneDeWeb,
     data: {
       mensaje: '¡Exito!',
       nombreArchivo: req.file.filename,
