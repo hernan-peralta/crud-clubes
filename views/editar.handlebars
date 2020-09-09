@@ -1,0 +1,83 @@
+<h2>Editar equipo</h2>
+
+{{#if vieneDeWeb}}
+<img src={{equipo.crestUrl}} alt="">
+{{else}}
+<img src="/uploads/imagenes/{{equipo.crestUrl}}" alt="">
+{{/if}}
+
+{{#if data.mensaje}}
+<p id="mensaje-exito">{{data.mensaje}}</p>
+{{/if}}
+
+<div id="div-boton">
+  <a href="/">
+    <button id='inicio'>Volver a inicio</button>
+  </a>
+</div>
+
+<div class="editar">
+  <form action="/equipo/{{equipo.tla}}/editar" method="POST" enctype="multipart/form-data">
+    <!--<label for="id-escudo">Escudo</label>
+    <input type="file" name="crestUrl" id="id-escudo" value={{equipo.crestUrl}}>-->
+
+    <label for="id-nombre">Nombre</label>
+    <input type="text" name="name" id="id-nombre" value="{{equipo.name}}">
+
+    <label for="id-nombreCorto">Nombre corto</label>
+    <input type="text" name="shortName" id="id-nombreCorto" value={{equipo.shortName}}>
+
+    <label for="id-acronimo">Acronimo (3 letras)</label>
+    <input type="text" name="tla" id="id-acronimo" value={{equipo.tla}}>
+
+    <label for="id-direccion">Direccion</label>
+    <input type="text" name="address" id="id-direccion" value="{{equipo.address}}">
+
+    <label for="id-telefono">Telefono</label>
+    <input type="text" name="phone" id="id-telefono" value="{{equipo.phone}}">
+
+    <label for="id-website">Website</label>
+    <input type="text" name="website" id="id-website" value={{equipo.website}}>
+
+    <label for="id-email">E-Mail</label>
+    <input type="text" name="email" id="id-email" value={{equipo.email}}>
+
+    <label for="id-fundacion">Año fundacion</label>
+    <input type="text" name="founded" id="id-fundacion" value={{equipo.founded}}>
+
+    <label for="id-colores">Colores del club</label>
+    <input type="text" name="clubColors" id="id-colores" value="{{equipo.clubColors}}">
+
+    <label for="id-estadio">Estadio</label>
+    <input type="text" name="venue" id="id-estadio" value="{{equipo.venue}}">
+
+  <!--
+    <h2>Jugadores</h2>
+    {{#each equipo.squad as |jugador|}}
+    <label for="{{jugador.id}}nombre">Nombre</label>
+    <input type="text" name="player" id="{{jugador.id}}nombre" value="{{jugador.name}}">
+    
+    <label for="{{jugador.id}}posicion">Posicion</label>
+    <input type="text" name="player" id="{{jugador.id}}posicion" value={{jugador.position}}>
+
+    <label for="{{jugador.id}}nacimiento">Fecha de nacimiento</label>
+    <input type="text" name="player" id="{{jugador.id}}nacimiento" value={{jugador.dateOfBirth}}>
+
+    <label for="{{jugador.id}}paisnacimiento">Pais de nacimiento</label>
+    <input type="text" name="player" id="{{jugador.id}}paisnacimiento" value={{jugador.countryOfBirth}}>
+
+    <label for="{{jugador.id}}nacionalidad">Nacionalidad</label>
+    <input type="text" name="player" id="{{jugador.id}}nacionalidad" value={{jugador.nationality}}>
+
+    <label for="{{jugador.id}}camiseta">Numero camiseta</label>
+    <input type="text" name="player" id="{{jugador.id}}camiseta" value={{jugador.shirtNumber}}>
+
+    <label for="{{jugador.id}}rol">Rol</label>
+    <input type="text" name="player" id="{{jugador.id}}rol" value={{jugador.role}}>
+    <br>
+    {{/each}}
+  -->
+    <input type="submit" id="boton-editar" value="Modificar equipo">
+  </form>
+</div>
+<br>
