@@ -21,7 +21,7 @@
   "homepage": "https://github.com/hernan-peralta/crud-clubes#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "express-handlebars": "^5.1.0",
+    "express-handlebars": "^5.3.1",
     "multer": "^1.4.2"
   },
   "devDependencies": {
